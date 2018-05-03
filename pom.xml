@@ -371,9 +371,9 @@
 
                 <!--db-->
                 <localos.jdbc.driver>com.mysql.jdbc.Driver</localos.jdbc.driver>
-                <localos.jdbc.url>jdbc:mysql://127.0.0.1:3306/lesson6</localos.jdbc.url>
-                <localos.jdbc.user>root</localos.jdbc.user>
-                <localos.jdbc.pass>root</localos.jdbc.pass>
+                <localos.jdbc.url>jdbc:mysql://47.94.235.143/lesson6</localos.jdbc.url>
+                <localos.jdbc.user>remoteroot</localos.jdbc.user>
+                <localos.jdbc.pass>Tsr1904911232!</localos.jdbc.pass>
             </properties>
         </profile>
 
