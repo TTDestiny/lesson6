@@ -52,7 +52,7 @@ public class StudentService extends BaseService{
         return studentRepository.findAll(new Specification<Student>() {
             @Override
             public Predicate toPredicate(Root<Student> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-//                Predicate   predicate = null;
+
                 List<Predicate> predicates = new ArrayList<>();
                 Path<String> number = root.get("studentId");
                 Path<String> studentName = root.get("name");
