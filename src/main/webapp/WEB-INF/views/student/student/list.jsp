@@ -80,21 +80,21 @@
                                                 <label class="inline" for="studentNumber">
                                                    学生学号：
                                                 </label>
-                                                <input type="text" name="studentId" id="studentNumber" value="${studentId}" autocomplete="off" class="input-sm" placeholder="学号" />
+                                                <input type="text" name="studentId" id="studentNumber" value="<c:out value="${studentId}"/>" autocomplete="off" class="input-sm" placeholder="学号" />
                                                 <label class="inline" for="studentName">
                                                     学生姓名：
                                                 </label>
-                                                <input type="text" name="name" id="studentName" value="${name}"  class="input-sm" autocomplete="off" placeholder="姓名" />
+                                                <input type="text" name="name" id="studentName" value="<c:out value="${name}"/>"  class="input-sm" autocomplete="off" placeholder="姓名" />
                                                 <label class="inline" for="studentName">
                                                     出生日期范围：
                                                 </label>
                                                <div class="inline">
                                                    <div class="input-daterange input-group ">
-                                                       <input type="text"   class="input-sm form-control" value="${starDate}" name="starDate" />
+                                                       <input type="text"   class="input-sm form-control" value="<c:out value="${starDate}"/>" name="starDate" />
                                                        <span class="input-group-addon">
 																		<i class="fa fa-exchange"></i>
 																	</span>
-                                                       <input type="text" class="input-sm form-control" value="${endDate}" name="endDate" />
+                                                       <input type="text" class="input-sm form-control" value="<c:out value="${endDate}"/>" name="endDate" />
                                                    </div>
                                                </div>
 
@@ -124,12 +124,12 @@
                                 <c:forEach items="${students}" var="student">
                                     <c:set value="${counts.get(student.id)}" var="count"/>
                                     <tr id="tr-${student.id}">
-                                        <td>${student.studentId}</td>
-                                        <td>${student.name}</td>
-                                        <td>${student.gender}</td>
-                                        <td>${student.birthday}</td>
-                                        <td>${student.grade.name}</td>
-                                        <td>${count}</td>
+                                        <td><c:out value="${student.studentId}" /></td>
+                                        <td><c:out value="${student.name}" /></td>
+                                        <td><c:out value="${student.gender}" /></td>
+                                        <td><c:out value="${student.birthday}" /></td>
+                                        <td><c:out value="${student.grade.name}" /></td>
+                                        <td><c:out value="${count}" /></td>
                                         <td>
                                             <c:if test="${not empty student.avgscore && student.avgscore !=0}">
                                                 <fmt:formatNumber value="${student.avgscore}"

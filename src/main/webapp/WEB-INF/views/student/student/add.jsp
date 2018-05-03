@@ -7,10 +7,15 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <lesson:page title="user.title.${cmd}">
     <jsp:attribute name="script">
-                <script src="/static-resource/ace/assets/js/jquery-1.8.3.js"></script>
-        <script src="/static-resource/ace/assets/js/jquery.validate.js"></script>
-        <script src="/static-resource/ace/assets/js/messages_zh.min.js"></script>
-        <script src="/static-resource/ace/assets/js/bootstrap-datepicker.min.js"></script>
+        <link rel="stylesheet" href="static-resource/ace/assets/css/jquery.gritter.min.css" />
+        <link rel="stylesheet" href="static-resource/ace/assets/css/bootstrap-editable.min.css" />
+        <script src="static-resource/ace/assets/js/jquery.gritter.min.js"></script>
+        <script src="static-resource/ace/assets/js/bootstrap-editable.min.js"></script>
+		<script src="static-resource/ace/assets/js/ace-editable.min.js"></script>
+        <script src="static-resource/ace/assets/js/jquery.iframe-transport.js"></script>
+        <script src="static-resource/ace/assets/js/jquery.fileupload.js"></script>
+		<script src="static-resource/ace/assets/js/bootstrap-datepicker.min.js"></script>
+        <script src="static-resource/ace/assets/js/bootstrap-tag.min.js"></script>
         <script type="application/javascript">
             <c:forEach items="${admin.roles}" var="role" varStatus="status">
             var obj${status.count} = document.getElementById('roleId_${role.id}');
@@ -104,7 +109,7 @@
                                     </label>
                                     <div class="col-sm-3">
                                         <input type="text" autocomplete="off" id="number" name="studentId"
-                                               value="${student.studentId}"
+                                               value="<c:out value="${student.studentId}"/>"
                                                class=" form-control"/>
                                         <span> </span>
                                     </div>
@@ -115,8 +120,8 @@
                                         姓名：
                                     </label>
                                     <div class="col-sm-3">
-                                        <input type="text" autocomplete="off" id="studentName" name="studentName"
-                                               value="${student.name}"
+                                        <input type="text" autocomplete="off" id="studentName" name="name"
+                                               value="<c:out value="${student.name}"/>"
                                                class=" form-control"/>
                                     </div>
                                     <label class="control-label no-padding-left" for="studentName" id="label_name"></label>
@@ -177,7 +182,7 @@
                                     <div class="col-sm-3">
                                         <select name="gradeId" class="chosen-select form-control "
                                                 id="grade" data-placeholder="请选择班级..">
-                                            <option></option>
+                                            <option> </option>
                                             <c:forEach var="grade" items="${grades}">
                                                 <option value="${grade.id}"
                                                         <c:if test="${student.grade.id eq grade.id}">selected="selected"</c:if> >${grade.name}</option>

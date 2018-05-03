@@ -9,7 +9,6 @@ public class StudentVo {
     @NotBlank(message = "学号不能为空")
     @Pattern(regexp = "^\\d{10}$",message = "学号由数字组成且长度为10")
     private String studentId;
-    @NotBlank(message = "姓名不能为空！")
     private String name;
     @NotBlank(message = "出生日期不能为空！")
     private String birthday;
