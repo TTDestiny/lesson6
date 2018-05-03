@@ -74,9 +74,9 @@ public class StudentController extends BaseController {
 
     @RequestMapping("/save_add")
     @PreAuthorize("hasAuthority('OPT_STUDENT_ADD')")
-    public ModelAndView save_add( StudentVo vo, String gradeId, BindingResult result, HttpServletRequest request) throws Exception {
+    public ModelAndView save_add( StudentVo vo, BindingResult result, HttpServletRequest request) throws Exception {
         Student student = new Student();
-        Grade grade = gradeService.get(gradeId);
+        Grade grade = gradeService.get(vo.getGradeId());
         student.setGrade(grade);
         copyProperties(vo, student);
         studentService.create(student);
