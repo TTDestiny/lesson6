@@ -7,12 +7,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -22,8 +23,8 @@ public class StudentService extends BaseService{
     @Autowired
     private StudentRepository studentRepository;
 
-   public List<Student> list() {
-       return studentRepository.findAll();
+   public Page<Student> list(PageRequest pageRequest) {
+       return studentRepository.findAll(pageRequest);
 
     }
 
@@ -48,11 +49,10 @@ public class StudentService extends BaseService{
         return studentRepository.findAll(ids);
     }
 
-    public List<Student> search(String studentId, String name, String starDate, String endDate) {
+    public Page<Student> search(String studentId, String name, String starDate, String endDate, PageRequest pageRequest) {
         return studentRepository.findAll(new Specification<Student>() {
             @Override
             public Predicate toPredicate(Root<Student> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-
                 List<Predicate> predicates = new ArrayList<>();
                 Path<String> number = root.get("studentId");
                 Path<String> studentName = root.get("name");
@@ -68,7 +68,7 @@ public class StudentService extends BaseService{
                 Predicate predicate = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
                 return predicate;
             }
-        });
+        },pageRequest);
     }
 
 }

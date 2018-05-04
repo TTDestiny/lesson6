@@ -23,11 +23,11 @@
     <jsp:attribute name="script">
 
         <script type="application/javascript">
-            jQuery(function($) {
+            jQuery(function ($) {
                 //datepicker plugin
                 $('.input-daterange').datepicker(
                     {
-                        autoclose:true,
+                        autoclose: true,
                         format: 'yyyy-mm-dd',
                         todayHighlight: true
                     });
@@ -52,15 +52,15 @@
         </div>
 
         <div class="page-content">
-            <input type="hidden" id="id-of-user">
-            <div class="row">
-                <div class="col-xs-12">
-                    <!-- PAGE CONTENT BEGINS -->
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <h3 class="header smaller lighter blue">
-                                <spring:message code="user.title.list"/>
-                                <span class=" btn-group pull-right">
+        <input type="hidden" id="id-of-user">
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- PAGE CONTENT BEGINS -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h3 class="header smaller lighter blue">
+                            <spring:message code="user.title.list"/>
+                            <span class=" btn-group pull-right">
                                 <sec:authorize ifAnyGranted="OPT_USER_ADD">
                                     <a href="/student/student/add.do" class="btn btn-sm btn-primary"><i
                                             class="ace-icon glyphicon glyphicon-plus"></i>
@@ -68,44 +68,50 @@
                                     </a>
                                 </sec:authorize>
                             	</span>
-                            </h3>
-                            <div >
-                                <div class="widget-box">
-                                    <div class="widget-header">
-                                        <h4 class="widget-title">学生搜索</h4>
-                                    </div>
-                                    <div class="widget-body">
-                                        <div class="widget-main">
-                                            <form action="/student/student/search.do" class="form-inline">
-                                                <label class="inline" for="studentNumber">
-                                                   学生学号：
-                                                </label>
-                                                <input type="text" name="studentId" id="studentNumber" value="<c:out value="${studentId}"/>" autocomplete="off" class="input-sm" placeholder="学号" />
-                                                <label class="inline" for="studentName">
-                                                    学生姓名：
-                                                </label>
-                                                <input type="text" name="name" id="studentName" value="<c:out value="${name}"/>"  class="input-sm" autocomplete="off" placeholder="姓名" />
-                                                <label class="inline" for="studentName">
-                                                    出生日期范围：
-                                                </label>
-                                               <div class="inline">
-                                                   <div class="input-daterange input-group ">
-                                                       <input type="text"   class="input-sm form-control" value="<c:out value="${starDate}"/>" name="starDate" />
-                                                       <span class="input-group-addon">
+                        </h3>
+                        <div>
+                            <div class="widget-box">
+                                <div class="widget-header">
+                                    <h4 class="widget-title">学生搜索</h4>
+                                </div>
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <form action="/student/student/search.do" class="form-inline">
+                                            <label class="inline" for="studentNumber">
+                                                学生学号：
+                                            </label>
+                                            <input type="text" name="studentId" id="studentNumber"
+                                                   value="<c:out value="${studentId}"/>" autocomplete="off"
+                                                   class="input-sm" placeholder="学号"/>
+                                            <label class="inline" for="studentName">
+                                                学生姓名：
+                                            </label>
+                                            <input type="text" name="name" id="studentName"
+                                                   value="<c:out value="${name}"/>" class="input-sm" autocomplete="off"
+                                                   placeholder="姓名"/>
+                                            <label class="inline" for="studentName">
+                                                出生日期范围：
+                                            </label>
+                                            <div class="inline">
+                                                <div class="input-daterange input-group ">
+                                                    <input type="text" class="input-sm form-control"
+                                                           value="<c:out value="${starDate}"/>" name="starDate"/>
+                                                    <span class="input-group-addon">
 																		<i class="fa fa-exchange"></i>
 																	</span>
-                                                       <input type="text" class="input-sm form-control" value="<c:out value="${endDate}"/>" name="endDate" />
-                                                   </div>
-                                               </div>
+                                                    <input type="text" class="input-sm form-control"
+                                                           value="<c:out value="${endDate}"/>" name="endDate"/>
+                                                </div>
+                                            </div>
 
-                                                <button type="submit" class="btn btn-info btn-sm">
-                                                    <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
-                                                    Search
-                                                </button>
-                                            </form>
-                                        </div>
+                                            <button type="submit" class="btn btn-info btn-sm">
+                                                <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+                                                Search
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
+                            </div>
                             <table id="dynamic-table" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
@@ -121,15 +127,15 @@
                                 </thead>
 
                                 <tbody>
-                                <c:forEach items="${students}" var="student">
+                                <c:forEach items="${page.content}" var="student">
                                     <c:set value="${counts.get(student.id)}" var="count"/>
                                     <tr id="tr-${student.id}">
-                                        <td><c:out value="${student.studentId}" /></td>
-                                        <td><c:out value="${student.name}" /></td>
-                                        <td><c:out value="${student.gender}" /></td>
-                                        <td><c:out value="${student.birthday}" /></td>
-                                        <td><c:out value="${student.grade.name}" /></td>
-                                        <td><c:out value="${count}" /></td>
+                                        <td><c:out value="${student.studentId}"/></td>
+                                        <td><c:out value="${student.name}"/></td>
+                                        <td><c:out value="${student.gender}"/></td>
+                                        <td><c:out value="${student.birthday}"/></td>
+                                        <td><c:out value="${student.grade.name}"/></td>
+                                        <td><c:out value="${count}"/></td>
                                         <td>
                                             <c:if test="${not empty student.avgscore && student.avgscore !=0}">
                                                 <fmt:formatNumber value="${student.avgscore}"
@@ -174,7 +180,7 @@
                                 </c:forEach>
                                 </tbody>
                             </table>
-
+                            <lesson:springPagePagination url="student/student/list.do" defaultPageSize="2" springPage="${page}"/>
                         </div><!-- /.span -->
                     </div><!-- /.row -->
 

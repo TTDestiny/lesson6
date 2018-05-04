@@ -9,6 +9,7 @@ import com.biz.lesson.model.student.Grade;
 import com.biz.lesson.model.student.Student;
 import com.biz.lesson.model.student.StudentSubject;
 import com.biz.lesson.model.student.Subject;
+import com.biz.lesson.util.PageControl;
 import com.biz.lesson.vo.student.StudentSubjectVo;
 import com.biz.lesson.vo.student.StudentVo;
 import com.biz.lesson.web.controller.BaseController;
@@ -17,6 +18,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -48,15 +51,18 @@ public class StudentController extends BaseController {
 
     @RequestMapping("/list")
     @PreAuthorize("hasAuthority('OPT_STUDENT_LIST')")
-    public ModelAndView list() throws Exception {
+    public ModelAndView list(HttpServletRequest request) throws Exception {
         ModelAndView modelAndView = new ModelAndView("student/student/list");
-        List<Student> students = studentService.list();
+        //分页
+        PageControl pc = new PageControl(request,2);
+        PageRequest pageRequest = new PageRequest(pc.getCurrentPage() - 1, pc.getPageSize());
+        Page<Student> page = studentService.list(pageRequest);
         Map<String,Long> counts = new HashMap<>();
-        for(Student student : students){
+        for(Student student : page.getContent()){
             long count = studentSubjectService.count(student.getId());
             counts.put(student.getId(),count);
         }
-        modelAndView.addObject("students", students);
+        modelAndView.addObject("page", page);
         modelAndView.addObject("counts", counts);
         return modelAndView;
     }
@@ -203,15 +209,17 @@ public class StudentController extends BaseController {
      * @return
      */
     @RequestMapping("/search")
-    public ModelAndView searchStudent(String studentId,String name,String starDate,String endDate){
-        List<Student> students = studentService.search(studentId, name, starDate, endDate);
+    public ModelAndView searchStudent(String studentId,String name,String starDate,String endDate,HttpServletRequest request){
+        PageControl pc = new PageControl(request,2 );
+        PageRequest pageRequest = new PageRequest(pc.getCurrentPage() - 1, pc.getPageSize());
+        Page<Student> page = studentService.search(studentId, name, starDate, endDate,pageRequest);
         ModelAndView modelAndView = new ModelAndView("/student/student/list");
         Map<String,Long> counts = new HashMap<>();
-        for(Student student : students){
+        for(Student student : page.getContent()){
             long count = studentSubjectService.count(student.getId());
             counts.put(student.getId(),count);
         }
-        modelAndView.addObject("students", students);
+        modelAndView.addObject("page", page);
         modelAndView.addObject("counts", counts);
         modelAndView.addObject("studentId", studentId);
         modelAndView.addObject("name", name);
